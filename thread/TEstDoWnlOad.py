@@ -1,4 +1,7 @@
-import sys,threadDLimg,poolThread,multiprocess,time,statistics
+import sys,threadDLimg, time,statistics
+from thread import multiprocess, poolThread
+
+
 def main():
     time_thread = []
     time_pool = []
