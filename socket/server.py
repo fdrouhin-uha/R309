@@ -1,5 +1,7 @@
 import socket
-
+import sys
+host= "172.0.0.1"
+port = int(sys.argv[1])
 server_socket = socket.socket()
 server_socket.bind(host, port)
 server_socket.listen(1)
