@@ -14,15 +14,15 @@ def download_image(img_url):
         img_file.write(img_bytes)
         print(f"{img_name} was downloaded")
 def main():
-    start = time.perf_counter()
+    #start = time.perf_counter()
     p1 = multiprocessing.Process(target=download_image, args=[img_urls[0]])
     p2 = multiprocessing.Process(target=download_image,args=[img_urls[1]])
     p1.start()
     p2.start()
     p1.join()
     p2.join()
-    end = time.perf_counter()
-    print(f"Tasks ended in {round(end - start, 2)} second(s)")
+    #end = time.perf_counter()
+    #print(f"Tasks ended in {round(end - start, 2)} second(s)")
 
 if __name__ == '__main__':
     sys.exit(main())

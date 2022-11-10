@@ -12,15 +12,15 @@ def download_image(img_url):
         print(f"{img_name} was downloaded")
 
 def main():
-    start = time.perf_counter()
+    #start = time.perf_counter()
     t1 = threading.Thread(target=download_image, args=[img_urls[0]])  # création de la thread
     t1.start()  # je démarre la thread
     t2 = threading.Thread(target=download_image, args=[img_urls[1]])
     t2.start()
     t1.join()  # j'attends la fin de la thread
     t2.join()  # j'attends la fin de la thread
-    end = time.perf_counter()
-    print(f"Tasks ended in {round(end - start, 2)} second(s)")
+    #end = time.perf_counter()
+    #print(f"Tasks ended in {round(end - start, 2)} second(s)")
 
 if __name__=="__main__":
     sys.exit(main())

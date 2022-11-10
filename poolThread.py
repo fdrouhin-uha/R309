@@ -15,11 +15,11 @@ def download_image(img_url):
         print(f"{img_name} was downloaded")
 
 def main():
-    start = time.perf_counter()
+    #start = time.perf_counter()
     with concurrent.futures.ThreadPoolExecutor() as executor:
         executor.map(download_image, img_urls)
-    end = time.perf_counter()
-    print(f"Tasks ended in {round(end - start, 2)} second(s)")
+    #end = time.perf_counter()
+    #print(f"Tasks ended in {round(end - start, 2)} second(s)")
 
 if __name__=="__main__":
     sys.exit(main())
