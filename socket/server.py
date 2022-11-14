@@ -19,6 +19,7 @@ while data != 'arret':
     data = conn.recv(1024).decode()
     print (data)
 else:
+    conn.send(data.encode())
     conn.close()
 
 
