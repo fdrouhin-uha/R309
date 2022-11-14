@@ -4,7 +4,7 @@ import sys
 
 host="127.0.0.1"
 port = int(sys.argv[1])
-message= 'hello'
+message= 'arret'
 client_socket = socket.socket()
 client_socket.connect((host, port))
 client_socket.send(message.encode())
@@ -15,7 +15,7 @@ while data != 'bye':
     client_socket.send(message.encode())
     data = client_socket.recv(1024).decode()
     print(data)
-    if data == 'arret':
-        client_socket.close()
+if data == 'arret':
+    client_socket.close()
 else:
     client_socket.close()
