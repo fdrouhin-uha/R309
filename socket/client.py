@@ -11,7 +11,7 @@ client_socket.send(message.encode())
 data = client_socket.recv(1024).decode()
 print(data)
 while data != 'bye':
-    massage = str(input('votre message: '))
+    message = str(input('votre message: '))
     client_socket.send(message.encode())
     data = client_socket.recv(1024).decode()
     print(data)
