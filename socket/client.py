@@ -8,7 +8,7 @@ client_socket = socket.socket()
 client_socket.connect((host, port))
 data=''
 while data != 'bye' and data !='arret' :
-    message = str(input('votre message: '))
+    message = input('votre message: ')
     client_socket.send(message.encode())
     data = client_socket.recv(1024).decode()
     print(data)
