@@ -9,33 +9,28 @@ if __name__ == '__main__':
         server_socket.bind((host, port))
         server_socket.listen(1)
         data=''
-        try:
-            while data != 'arret':
+        while data != 'arret':
+            print("Je suis en attente")
+            try:
                 conn, address = server_socket.accept()
-                data = conn.recv(1024).decode()
-                print(data)
-                conn.send(data.encode())
+                print("Je suis connecté")
+                data = ''
                 while data != 'bye' and data !='arret':
                     data = conn.recv(1024).decode()
                     conn.send(data.encode())
-                    print (data)
-                if data == 'bye':
-                    conn.send(data.encode())
-                    conn.close()
-            conn.send(data.encode())
-            server_socket.close()
-        except ConnectionResetError:
-            print("perte de connexion")
-            conn.close()
-        except TimeoutError:
-            print("time out")
-            conn.close() 
-        except BrokenPipeError:
-            print("connexion perdue")
-            conn.close()
-            server_socket.close() 
+                    print (f"E/R: {data}")
+            except ConnectionResetError:
+                print("perte de connexion")
+            except TimeoutError:
+                print("time out")
+            except BrokenPipeError:
+                print("connexion perdue")
+            finally:
+                conn.close()
     except PermissionError:
         print ("le port n'est pas bon")
+    finally:
+        server_socket.close() 
 
 
 

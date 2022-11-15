@@ -14,14 +14,17 @@ if __name__ == '__main__':
                 client_socket.send(message.encode())
                 data = client_socket.recv(1024).decode()
                 print(data)
-            client_socket.close()
+
         except ConnectionResetError:
-            client_socket.close()
+            print("perte de connexion")
         except TimeoutError:
             print("time out")
-            client_socket.close()
         except BrokenPipeError:
             print("connexion perdue")
+        except KeyboardInterrupt:
+            print("Interruption clavier : ^C")
+        finally:
+            client_socket.send("bye".encode())
             client_socket.close()
     except PermissionError:
         print ("le port n'est pas bon")
