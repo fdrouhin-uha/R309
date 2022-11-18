@@ -14,6 +14,9 @@ class MainWindow(QMainWindow):
         ok = QPushButton("Ok")
         quit = QPushButton("Quitter")
         # Ajouter les composants au grid ayout
+        grid.addWidget(lab, 0, 0)
+        grid.addWidget(text, 1, 0)
+        grid.addWidget(ok, 2, 0)
         ok.clicked.connect(self._actionOk)
         quit.clicked.connect(self._actionQuitter)
         self.setWindowTitle("Une première fenêtre")
