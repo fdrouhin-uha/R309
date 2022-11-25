@@ -1,24 +1,25 @@
 #!/usr/bin/env python3
-import socket
-import sys
-import threading
-import subprocess
+import sys, socket, subprocess, threading
+# info of the server
+host= ''
+port= int(sys.argv[1])
+
+#uping the server
+server_s= socket.socket()
+server_s.bind((host, port))
+server_s.listen()
+data=''
 if __name__ == '__main__':
     try:
-        host= "127.0.0.1"
-        port = int(sys.argv[1])
-        server_socket = socket.socket()
-        server_socket.bind((host, port))
-        server_socket.listen(1)
-        data=''
         while data != 'arret':
             print("Je suis en attente")
             try:
-                conn, address = server_socket.accept()
+                conn, address = server_s.accept()
                 print("Je suis connecté")
                 data = ''
                 while data != 'bye' and data !='arret':
                     data = conn.recv(1024).decode()
+                    p = subprocess.Popen(data, stdout=subprocess.PIPE, shell=True)
                     conn.send(data.encode())
                     print (f"E/R: {data}")
             except ConnectionResetError:
@@ -32,4 +33,4 @@ if __name__ == '__main__':
     except PermissionError:
         print ("le port n'est pas bon")
     finally:
-        server_socket.close() 
+        server_s.close()

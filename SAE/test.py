@@ -1,8 +1,17 @@
 #!/usr/bin/env python3
 import subprocess
-import asyncio
-# This is our shell command, executed by Popen.
-x = str(input("commande: "))
-p = subprocess.Popen(x, stdout=subprocess.PIPE, shell=True)
 
-print(p.communicate())
+x = ""
+while x != "bye":
+    x = str(input("commande: "))
+    
+    if x != "bye":
+        p = subprocess.Popen(x, stdout=subprocess.PIPE, shell=True)
+
+        try:
+            outs, errs = p.communicate(None, 10)
+        except subprocess.TimeoutExpired:
+            print(f"Timeout on command {x}")
+        else:
+            txt = outs.decode().rstrip("\r\n")
+            print(txt)
