@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-import command
+import subprocess
+import asyncio
+# This is our shell command, executed by Popen.
+x = str(input("commande: "))
+p = subprocess.Popen(x, stdout=subprocess.PIPE, shell=True)
 
-res = command.run(['ls']) 
-
-print(res.output) 
-print(res.exit)
+print(p.communicate())
