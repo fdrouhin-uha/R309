@@ -37,6 +37,12 @@ if __name__ == '__main__':
                             p = platform.system()
                             o = platform.release()
                             print(p,o)
+                    elif data =='IP':
+                        if sys.platform == 'linux':
+                            p = subprocess.Popen("ip a | grep inet | grep global | awk '{print $2}'", stdout=subprocess.PIPE, shell=True)
+                            outs, errs = p.communicate()
+                            txt = outs.decode().rstrip("\r\n")
+                            print(txt)
                     #execute command in the shell using the argument "data"
                     else:
                         p = subprocess.Popen(data, stdout=subprocess.PIPE, shell=True)

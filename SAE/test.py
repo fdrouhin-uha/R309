@@ -24,6 +24,12 @@ while x != "bye":
                 p = platform.system()
                 o = platform.release()
                 print(p,o)
+        elif x =='IP':
+            if sys.platform == 'linux':
+                p = subprocess.Popen("ip a | grep inet | grep global | awk '{print $2}'", stdout=subprocess.PIPE, shell=True)
+                outs = p.communicate()
+                txt = outs.decode().rstrip("\r\n")
+                print(txt)
         else:
             p = subprocess.Popen(x, stdout=subprocess.PIPE, shell=True)
             try:
