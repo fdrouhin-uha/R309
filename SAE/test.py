@@ -8,7 +8,9 @@ while x != "bye":
     if x != "bye":
         if x == 'cpu':
            p = psutil.cpu_percent(interval=1, percpu=True)
+           txt = ', '.join(map(str,p))
            print(p)
+           print(txt)
         elif x == "NAME":
             p = platform.node() 
             print(p)

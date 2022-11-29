@@ -21,8 +21,9 @@ if __name__ == '__main__':
                     data = conn.recv(1024).decode()
                     if data == "CPU":
                         p = psutil.cpu_percent(interval=1, percpu=True)
+                        txt = ', '.join(map(str,p))
                         print(p) 
-                        conn.send(p.encode())
+                        conn.send(txt.encode())
                     elif data =="RAM":
                         p = psutil.virtual_memory()
                         print(p)
