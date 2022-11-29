@@ -17,32 +17,36 @@ if __name__ == '__main__':
                 conn, address = server_s.accept()
                 print("connected !!")
                 data = ''
-                while data != 'disconnect' and data !='kill': #"disconnect" command stop the connexion between the server and the client
+                while data != 'disconnect' and data !='kill' and "reset": #"disconnect" command stop the connexion between the server and the client
                     data = conn.recv(1024).decode()
                     if data == "CPU":
                         p = psutil.cpu_percent(interval=1, percpu=True)
                         print(p) 
+                        conn.send(p.encode())
                     elif data =="RAM":
                         p = psutil.virtual_memory()
                         print(p)
+                        conn.send(p.encode())
                     elif data == "NAME":
                         p = platform.node()
                         print(p)
+                        conn.send(p.encode())
                     elif data == "OS":
                         if sys.platform == "linux":
-                            p = platform.freedesktop_os_release()['PRETTY_NAME']
-                            o = platform.release()
-                            print(p,o)
+                            p = platform.freedesktop_os_release()['PRETTY_NAME'] + platform.release()
+                            print(p)
+                            conn.send(p.encode())
                         else:
-                            p = platform.system()
-                            o = platform.release()
-                            print(p,o)
+                            p = platform.system() + platform.release()
+                            print(p)
+                            conn.send(p.encode())
                     elif data =='IP':
                         if sys.platform == 'linux':
                             p = subprocess.Popen("ip a | grep inet | grep global | awk '{print $2}'", stdout=subprocess.PIPE, shell=True)
                             outs, errs = p.communicate()
                             txt = outs.decode().rstrip("\r\n")
                             print(txt)
+                            conn.send(txt.encode())
                     #execute command in the shell using the argument "data"
                     else:
                         p = subprocess.Popen(data, stdout=subprocess.PIPE, shell=True)

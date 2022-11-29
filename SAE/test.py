@@ -17,9 +17,8 @@ while x != "bye":
                 print(p)
         elif x == "OS":
             if sys.platform == "linux":
-                p = platform.freedesktop_os_release()['PRETTY_NAME']
-                o = platform.release()
-                print(p,o)
+                p = platform.freedesktop_os_release()['PRETTY_NAME'],platform.release()
+                print(p)
             else:
                 p = platform.system()
                 o = platform.release()
