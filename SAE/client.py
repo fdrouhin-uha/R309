@@ -10,7 +10,7 @@ if __name__ == '__main__':
         data=''
         message=''
         try:
-            while message != 'disconnect' and message !='kill' :
+            while message != 'disconnect' and message !='kill' and message !='reset' :
                 message = input('votre message: ')
                 client_socket.send(message.encode())
                 data = client_socket.recv(1024).decode()
