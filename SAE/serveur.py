@@ -19,21 +19,21 @@ if __name__ == '__main__':
                 data = ''
                 while data != 'disconnect' and data !='kill' and data!="reset": #"disconnect" command stop the connexion between the server and the client
                     data = conn.recv(1024).decode()
-                    if data == "CPU":
+                    if data == "CPU": # give the percent of using form each cpu 
                         p = psutil.cpu_percent(interval=1, percpu=True)
                         txt = ', '.join(map(str,p))
                         print(p) 
                         conn.send(txt.encode())
-                    elif data =="RAM":
+                    elif data =="RAM": # give all  info for memoty 
                         p = psutil.virtual_memory()._asdict()
                         txt = json.dumps(p)
                         conn.send(txt.encode())
-                    elif data == "NAME":
+                    elif data == "NAME": #give the name of the device 
                         p = platform.node()
                         print(p)
                         conn.send(p.encode())
                     elif data == "OS":
-                        if sys.platform == "linux":
+                        if sys.platform == "linux": # give the distribution of the device
                             p = platform.freedesktop_os_release()['PRETTY_NAME'] + platform.release()
                             print(p)
                             conn.send(p.encode())
@@ -42,7 +42,7 @@ if __name__ == '__main__':
                             print(p)
                             conn.send(p.encode())
                     elif data =='IP':
-                        if sys.platform == 'linux':
+                        if sys.platform == 'linux': # give ip address 
                             p = subprocess.Popen("ip a | grep inet | grep global | awk '{print $2}'", stdout=subprocess.PIPE, shell=True)
                             outs, errs = p.communicate()
                             txt = outs.decode().rstrip("\r\n")
