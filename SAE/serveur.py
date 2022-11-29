@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import sys, socket, subprocess,psutil,platform
+import sys, socket, subprocess,psutil,platform,json
 # info of the server
 host= "127.0.0.1"
 port= int(sys.argv[1])
@@ -25,9 +25,9 @@ if __name__ == '__main__':
                         print(p) 
                         conn.send(txt.encode())
                     elif data =="RAM":
-                        p = psutil.virtual_memory()
-                        print(p)
-                        conn.send(p.encode())
+                        p = psutil.virtual_memory()._asdict()
+                        txt = json.dumps(p)
+                        conn.send(txt.encode())
                     elif data == "NAME":
                         p = platform.node()
                         print(p)
