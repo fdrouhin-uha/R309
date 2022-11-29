@@ -17,7 +17,7 @@ if __name__ == '__main__':
                 conn, address = server_s.accept()
                 print("connected !!")
                 data = ''
-                while data != 'disconnect' and data !='kill' and "reset": #"disconnect" command stop the connexion between the server and the client
+                while data != 'disconnect' and data !='kill' and data!="reset": #"disconnect" command stop the connexion between the server and the client
                     data = conn.recv(1024).decode()
                     if data == "CPU":
                         p = psutil.cpu_percent(interval=1, percpu=True)
@@ -50,15 +50,17 @@ if __name__ == '__main__':
                             conn.send(txt.encode())
                     #execute command in the shell using the argument "data"
                     else:
-                        p = subprocess.Popen(data, stdout=subprocess.PIPE, shell=True)
-                        try:
-                            outs, errs = p.communicate(None, 10)
-                        except subprocess.TimeoutExpired:
-                            print(f"Timeout on command {data}")
-                        else:
-                            txt = outs.decode().rstrip("\r\n")
-                            print(txt)
-                            conn.send(txt.encode())
+                        
+                            p = subprocess.Popen(data, stdout=subprocess.PIPE, shell=True)
+                            try:
+                                outs, errs = p.communicate(None, 10)
+                            except subprocess.TimeoutExpired:
+                                print(f"Timeout on command {data}")
+                            else:
+                                txt = outs.decode().rstrip("\r\n")
+                                print(txt)
+                                conn.send(txt.encode())
+                        
             except ConnectionResetError:
                 print("connexion lost")
             except TimeoutError:

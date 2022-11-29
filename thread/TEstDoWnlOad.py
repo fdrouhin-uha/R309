@@ -1,5 +1,5 @@
-import sys,threadDLimg, time,statistics
-from thread import multiprocess, poolThread
+import sys,threadDLimg, time,statistics 
+import multiprocess, poolThread
 
 
 def main():

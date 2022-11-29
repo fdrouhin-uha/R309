@@ -32,9 +32,11 @@ while x != "bye":
                 txt = outs.decode().rstrip("\r\n")
                 print(txt)
             else:
-                pass
+                p = subprocess.Popen("ipconfig | findstr IPv4", stdout=subprocess.PIPE, shell=True)
         else:
+            #o = subprocess.check_call('False',shell=False )
             p = subprocess.Popen(x, stdout=subprocess.PIPE, shell=True)
+            #print(o)
             try:
                 outs, errs = p.communicate(None, 10)
             except subprocess.TimeoutExpired:
