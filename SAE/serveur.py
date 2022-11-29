@@ -48,19 +48,20 @@ if __name__ == '__main__':
                             txt = outs.decode().rstrip("\r\n")
                             print(txt)
                             conn.send(txt.encode())
+                            print (f"E/R: {data}")
                     #execute command in the shell using the argument "data"
                     else:
-                        
-                            p = subprocess.Popen(data, stdout=subprocess.PIPE, shell=True)
-                            try:
-                                outs, errs = p.communicate(None, 10)
-                            except subprocess.TimeoutExpired:
-                                print(f"Timeout on command {data}")
-                            else:
-                                txt = outs.decode().rstrip("\r\n")
-                                print(txt)
-                                conn.send(txt.encode())
-                        
+                        p = subprocess.Popen(data, stdout=subprocess.PIPE, shell=True, stderr=subprocess.STDOUT)
+                        try:
+                            outs, errs = p.communicate(None, 10)
+                        except subprocess.TimeoutExpired:
+                            print(f"Timeout on command {data}")
+                        else:
+                            txt = outs.decode().rstrip("\r\n")
+                            conn.send(txt.encode())
+                            print (f"E/R: {data}")
+                            print (f"E/R: {txt}")
+                    
             except ConnectionResetError:
                 print("connexion lost")
             except TimeoutError:

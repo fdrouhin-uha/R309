@@ -4,7 +4,7 @@ import subprocess,psutil,platform,sys
 x = ""
 while x != "bye":
     x = str(input("commande: "))
-    
+
     if x != "bye":
         if x == 'cpu':
            p = psutil.cpu_percent(interval=1, percpu=True)
@@ -35,7 +35,7 @@ while x != "bye":
                 p = subprocess.Popen("ipconfig | findstr IPv4", stdout=subprocess.PIPE, shell=True)
         else:
             #o = subprocess.check_call('False',shell=False )
-            p = subprocess.Popen(x, stdout=subprocess.PIPE, shell=True)
+            p = subprocess.Popen(x, stdout=subprocess.PIPE, shell=True, stderr=subprocess.STDOUT)
             #print(o)
             try:
                 outs, errs = p.communicate(None, 10)
@@ -43,4 +43,4 @@ while x != "bye":
                 print(f"Timeout on command {x}")
             else:
                 txt = outs.decode().rstrip("\r\n")
-                print(txt)
+                print(f'outs = {txt}')
