@@ -30,6 +30,8 @@ while x != "bye":
                 outs = p.communicate()
                 txt = outs.decode().rstrip("\r\n")
                 print(txt)
+            else:
+                pass
         else:
             p = subprocess.Popen(x, stdout=subprocess.PIPE, shell=True)
             try:
