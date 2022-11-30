@@ -16,14 +16,14 @@ server_s.listen()
 data = ''
 if __name__ == '__main__':
     try:
-        while data != 'kill':  # "kill" command shut down the server
+        while data != ':kill':  # "kill" command shut down the server
             print("waiting !!")
             try:
                 conn, address = server_s.accept()
                 print("connected !!")
                 data = ''
                 # "disconnect" command stop the connexion between the server and the client
-                while data != 'disconnect' and data != 'kill' and data != "reset":
+                while data != ':disconnect' and data != ':kill' and data != ":reset":
                     data = conn.recv(1024).decode()
                     if data == "CPU":  # give the percent of using form each cpu
                         p = psutil.cpu_percent(interval=1, percpu=True)
