@@ -1,57 +1,66 @@
 #!/usr/bin/env python3
-import sys, socket, subprocess,psutil,platform,json
+import sys
+import socket
+import subprocess
+import psutil
+import platform
+import json
 # info of the server
-host= "127.0.0.1"
-port= int(sys.argv[1])
+host = "127.0.0.1"
+port = int(sys.argv[1])
 
-#uping the server
-server_s= socket.socket()
+# uping the server
+server_s = socket.socket()
 server_s.bind((host, port))
 server_s.listen()
-data=''
+data = ''
 if __name__ == '__main__':
     try:
-        while data != 'kill': #"kill" command shut down the server
+        while data != 'kill':  # "kill" command shut down the server
             print("waiting !!")
             try:
                 conn, address = server_s.accept()
                 print("connected !!")
                 data = ''
-                while data != 'disconnect' and data !='kill' and data!="reset": #"disconnect" command stop the connexion between the server and the client
+                # "disconnect" command stop the connexion between the server and the client
+                while data != 'disconnect' and data != 'kill' and data != "reset":
                     data = conn.recv(1024).decode()
-                    if data == "CPU": # give the percent of using form each cpu 
+                    if data == "CPU":  # give the percent of using form each cpu
                         p = psutil.cpu_percent(interval=1, percpu=True)
-                        txt = ', '.join(map(str,p))
-                        print(p) 
+                        txt = ', '.join(map(str, p))
+                        print(p)
                         conn.send(txt.encode())
-                    elif data =="RAM": # give all  info for memoty 
+                    elif data == "RAM":  # give all  info for memoty
                         p = psutil.virtual_memory()._asdict()
                         txt = json.dumps(p)
                         conn.send(txt.encode())
-                    elif data == "NAME": #give the name of the device 
+                    elif data == "NAME":  # give the name of the device
                         p = platform.node()
                         print(p)
                         conn.send(p.encode())
                     elif data == "OS":
-                        if sys.platform == "linux": # give the distribution of the device
-                            p = platform.freedesktop_os_release()['PRETTY_NAME'] + platform.release()
+                        if sys.platform == "linux":  # give the distribution of the device
+                            p = platform.freedesktop_os_release(
+                            )['PRETTY_NAME'] + platform.release()
                             print(p)
                             conn.send(p.encode())
                         else:
                             p = platform.system() + platform.release()
                             print(p)
                             conn.send(p.encode())
-                    elif data =='IP':
-                        if sys.platform == 'linux': # give ip address 
-                            p = subprocess.Popen("ip a | grep inet | grep global | awk '{print $2}'", stdout=subprocess.PIPE, shell=True)
+                    elif data == 'IP':
+                        if sys.platform == 'linux':  # give ip address
+                            p = subprocess.Popen(
+                                "ip a | grep inet | grep global | awk '{print $2}'", stdout=subprocess.PIPE, shell=True)
                             outs, errs = p.communicate()
                             txt = outs.decode().rstrip("\r\n")
                             print(txt)
                             conn.send(txt.encode())
-                            print (f"E/R: {data}")
-                    #execute command in the shell using the argument "data"
+                            print(f"E/R: {data}")
+                    # execute command in the shell using the argument "data"
                     else:
-                        p = subprocess.Popen(data, stdout=subprocess.PIPE, shell=True, stderr=subprocess.STDOUT)
+                        p = subprocess.Popen(
+                            data, stdout=subprocess.PIPE, shell=True, stderr=subprocess.STDOUT)
                         try:
                             outs, errs = p.communicate(None, 10)
                         except subprocess.TimeoutExpired:
@@ -59,9 +68,9 @@ if __name__ == '__main__':
                         else:
                             txt = outs.decode().rstrip("\r\n")
                             conn.send(txt.encode())
-                            print (f"E/R: {data}")
-                            print (f"E/R: {txt}")
-                    
+                            print(f"E/R: {data}")
+                            print(f"E/R: {txt}")
+
             except ConnectionResetError:
                 print("connexion lost")
             except TimeoutError:
@@ -71,6 +80,6 @@ if __name__ == '__main__':
             finally:
                 conn.close()
     except PermissionError:
-        print ("connexion port is not correct")
+        print("connexion port is not correct")
     finally:
         server_s.close()
