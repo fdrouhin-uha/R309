@@ -68,7 +68,7 @@ if __name__ == '__main__':
                         else:
                             txt = outs.decode().rstrip("\r\n")
                             conn.send(txt.encode())
-                            print(f"E/R: {data}")
+                            print(f"E/R1: {data}")
                             print(f"E/R: {txt}")
 
             except ConnectionResetError:

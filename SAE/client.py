@@ -41,7 +41,7 @@ class Client:
         self.client.close()
 
 if __name__ == "__main__":
-    test = Client(int(sys.argv[1]), int(sys.argv[2]))
+    test = Client(HOST, int(sys.argv[1]))
     msg = ''
     while msg != ':disconnect' and msg != ':kill':
         print('commande : ')

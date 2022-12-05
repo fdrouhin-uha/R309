@@ -11,6 +11,7 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(widget)
         self.__grid = QGridLayout()
         widget.setLayout(self.__grid)
+        self.resize(300, 270)
         self.__lab = QLabel("host")
         self.__lab2 = QLabel("port")
         self.__text = QLineEdit("")
@@ -29,10 +30,12 @@ class MainWindow(QMainWindow):
 
     def _actionConn(self):
         HOST = self.__text.text()
-        PORT = self.__text2.text()
+        p = self.__text2.text()
+        PORT = int(p)
         Client(HOST,PORT)
         
-
+    def _chatWin(self):
+        pass
 
     def _actionQuitter(self):
         QCoreApplication.exit(0)
