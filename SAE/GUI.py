@@ -21,14 +21,16 @@ class MainWindow(QMainWindow):
         self.__grid.addWidget(self.__lab2, 2, 0)
         self.__grid.addWidget(self.__text, 1, 0)
         self.__grid.addWidget(self.__text2, 3, 0)
-        self.__grid.addWidget(self.__ok, 4, 0)
+        self.__grid.addWidget(self.__conn, 4, 0)
         self.__grid.addWidget(self.__quit, 5, 0)
         self.__conn.clicked.connect(self._actionConn)
         self.__quit.clicked.connect(self._actionQuitter)
         self.setWindowTitle("home")
 
     def _actionConn(self):
-        Client(self.__text,self.__text2)
+        HOST = self.__text.text()
+        PORT = self.__text2.text()
+        Client(HOST,PORT)
         
 
 

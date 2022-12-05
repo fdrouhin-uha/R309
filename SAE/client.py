@@ -2,11 +2,12 @@
 import socket
 import sys
 import threading
+HOST = "127.0.0.1"
 
 
 class Client:
 
-    def __init__(self, host: str, port: int) -> None:
+    def __init__(self, host: str, port: str) -> None:
         self.client = socket.socket()
         self.data = ""
         self.addr = (host, port)
@@ -39,3 +40,11 @@ class Client:
     def close(self):
         self.client.close()
 
+if __name__ == "__main__":
+    test = Client(int(sys.argv[1]), int(sys.argv[2]))
+    msg = ''
+    while msg != ':disconnect' and msg != ':kill':
+        print('commande : ')
+        msg = input()
+        test.send(msg)
+    test.close()
