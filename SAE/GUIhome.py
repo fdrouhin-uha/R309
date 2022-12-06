@@ -17,7 +17,7 @@ class MainWindow(QMainWindow):
         self.__text = QLineEdit("")
         self.__text2 = QLineEdit("")
         self.__conn = QPushButton("connexion")
-        self.__quit = QPushButton("Quitter")
+        self.__quit = QPushButton("Exit")
         self.__grid.addWidget(self.__lab, 0, 0)
         self.__grid.addWidget(self.__lab2, 2, 0)
         self.__grid.addWidget(self.__text, 1, 0)
