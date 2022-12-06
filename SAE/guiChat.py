@@ -30,15 +30,15 @@ class ChatWindow(QMainWindow):
         self.__grid.addWidget(self.__lab4, 3, 0)
         self.__quit.clicked.connect(self._actionQuitter)
         self.__send.clicked.connect(self._send)
-        Client("127.0.0.1",10000)
+        self.__client = Client("127.0.0.1",10000)
     
     def _actionQuitter(self):
         QCoreApplication.exit(0)
 
     def _send(self):
         msg = self.__text.text()
-        Client.send(msg)
-        recv = Client.recive()
+        self.__client.send(msg)
+        recv = self.__client.recive()
         self.__lab3.setText(msg)
         self.__lab4.setText(recv)
         
