@@ -7,7 +7,7 @@ HOST = "127.0.0.1"
 
 class Client:
 
-    def __init__(self, host: str, port: str) -> None:
+    def __init__(self, host: str, port: int) -> None:
         self.client = socket.socket()
         self.data = ""
         self.addr = (host, port)
@@ -34,9 +34,14 @@ class Client:
         finally:
             self.client.close()
     
-    def send(self, msg):
+    def send(self,msg):
         self.client.send(msg.encode())
-
+    
+    
+    def recive(self):
+        self.data = self.client.recv(1024).decode()
+        
+    
     def close(self):
         self.client.close()
 
