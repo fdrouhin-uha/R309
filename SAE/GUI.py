@@ -34,8 +34,6 @@ class MainWindow(QMainWindow):
         PORT = int(p)
         Client(HOST,PORT)
         
-    def _chatWin(self):
-        pass
 
     def _actionQuitter(self):
         QCoreApplication.exit(0)
