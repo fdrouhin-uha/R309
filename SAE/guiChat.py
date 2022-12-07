@@ -40,9 +40,8 @@ class ChatWindow(QMainWindow):
     def _send(self):
         msg = self.__text.text()
         self.__client.send(msg)
-        recv = self.__client.__condi()
         self.__lab3.setText(msg)
-        self.__lab4.setText(recv)
+        
         
 if __name__ == '__main__':
     app = QApplication(sys.argv)

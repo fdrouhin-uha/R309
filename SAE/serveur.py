@@ -24,7 +24,10 @@ if __name__ == '__main__':
                 data = ''
                 # "disconnect" command stop the connexion between the server and the client
                 while data != ':disconnect' and data != ':kill' and data != ":reset":
-                    data = conn.recv(1024).decode()
+                    dataraw = conn.recv(1024)
+                    if not dataraw:
+                        break
+                    data = dataraw.decode()
                     if data == "CPU":  # give the percent of using form each cpu
                         p = psutil.cpu_percent(interval=1, percpu=True)
                         txt = ', '.join(map(str, p))

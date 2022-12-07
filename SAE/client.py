@@ -15,10 +15,10 @@ class Client:
 
     def __connexion(self):
         self.client.connect(self.addr)
-        client_condi = threading.Thread(target=self.__condi)
+        client_condi = threading.Thread(target=self.condi)
         client_condi.start()
 
-    def __condi(self):
+    def condi(self):
         try:
             while self.data != ':disconnect' and self.data != ':kill':
                 self.data = self.client.recv(1024).decode()
