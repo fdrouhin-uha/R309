@@ -1,17 +1,15 @@
 #!/usr/bin/env python3
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QGridLayout,QLineEdit, QPushButton,QTextBrowser
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QGridLayout,QLineEdit, QPushButton,QTextBrowser,QDialog
 from PyQt5.QtCore import QCoreApplication
 from client import Client
-from GUIhome import MainWindow
 
-class ChatWindow(QMainWindow):
+
+class ChatWindow(QDialog):
     def __init__(self):
         super().__init__()
-        widget = QWidget()
-        self.setCentralWidget(widget)
         self.__grid = QGridLayout()
-        widget.setLayout(self.__grid)
+        self.setLayout(self.__grid)
         self.resize(700, 400)
         self.setWindowTitle("monitoring")
         self.__text = QLineEdit("")
@@ -22,8 +20,9 @@ class ChatWindow(QMainWindow):
         self.__grid.addWidget(self.__affi,0,0,6,1)
         self.__quit.clicked.connect(self._actionQuitter)
         self.__text.returnPressed.connect(self._send)
-        self.__client = Client(MainWindow.actionConn,self.__affi)
+        self.__client = Client(,self.__affi)
     
+
     def _actionQuitter(self):
         msg = ':disconnect'
         self.__client.send(msg)
@@ -32,8 +31,7 @@ class ChatWindow(QMainWindow):
     def _send(self):
         msg = self.__text.text()
         self.__client.send(msg)
-        
-        
+           
         
 if __name__ == '__main__':
     app = QApplication(sys.argv)

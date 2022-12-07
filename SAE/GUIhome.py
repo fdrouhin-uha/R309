@@ -34,9 +34,11 @@ class MainWindow(QMainWindow):
         p = self.__text2.text()
         PORT = int(p)
         conn = (HOST,PORT)
+        diag = guiChat.ChatWindow()
+        diag.show()
+        diag.exec()
         
-        
-        
+    
 
     def _actionQuitter(self):
         QCoreApplication.exit(0)
