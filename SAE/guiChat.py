@@ -3,7 +3,7 @@ import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QGridLayout,QLineEdit, QPushButton,QTextBrowser
 from PyQt5.QtCore import QCoreApplication
 from client import Client
-
+from GUIhome import MainWindow
 
 class ChatWindow(QMainWindow):
     def __init__(self):
@@ -15,16 +15,14 @@ class ChatWindow(QMainWindow):
         self.resize(700, 400)
         self.setWindowTitle("monitoring")
         self.__text = QLineEdit("")
-        self.__send = QPushButton("send")
         self.__quit = QPushButton("Exit")
         self.__affi = QTextBrowser()
         self.__grid.addWidget(self.__text, 7, 0)
-        self.__grid.addWidget(self.__send, 7, 1)
         self.__grid.addWidget(self.__quit, 0, 1)
         self.__grid.addWidget(self.__affi,0,0,6,1)
         self.__quit.clicked.connect(self._actionQuitter)
         self.__text.returnPressed.connect(self._send)
-        self.__client = Client("127.0.0.1",10001,self.__affi)
+        self.__client = Client(MainWindow.actionConn,self.__affi)
     
     def _actionQuitter(self):
         msg = ':disconnect'

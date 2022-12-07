@@ -3,6 +3,7 @@ import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QGridLayout, QLabel, QLineEdit, QPushButton
 from PyQt5.QtCore import QCoreApplication
 from client import Client
+import guiChat
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -24,15 +25,17 @@ class MainWindow(QMainWindow):
         self.__grid.addWidget(self.__text2, 3, 0)
         self.__grid.addWidget(self.__conn, 4, 0)
         self.__grid.addWidget(self.__quit, 5, 0)
-        self.__conn.clicked.connect(self._actionConn)
+        self.__conn.clicked.connect(self.actionConn)
         self.__quit.clicked.connect(self._actionQuitter)
         self.setWindowTitle("home")
 
-    def _actionConn(self):
+    def actionConn(self):
         HOST = self.__text.text()
         p = self.__text2.text()
         PORT = int(p)
-        Client(HOST,PORT)
+        conn = (HOST,PORT)
+        
+        
         
 
     def _actionQuitter(self):
