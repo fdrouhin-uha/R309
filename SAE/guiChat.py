@@ -33,12 +33,14 @@ class ChatWindow(QMainWindow):
         self.__client = Client("127.0.0.1",10000)
     
     def _actionQuitter(self):
+        msg = ':disconnect'
+        self.__client.send(msg)
         QCoreApplication.exit(0)
 
     def _send(self):
         msg = self.__text.text()
         self.__client.send(msg)
-        recv = self.__client.recive()
+        recv = self.__client.close()
         self.__lab3.setText(msg)
         self.__lab4.setText(recv)
         
