@@ -2,16 +2,18 @@
 import socket
 import sys
 import threading
+from PyQt5.QtWidgets import QTextBrowser
 HOST = "127.0.0.1"
 
 
 class Client:
 
-    def __init__(self, host: str, port: int) -> None:
+    def __init__(self, host: str, port: int,affi: QTextBrowser) -> None:
         self.client = socket.socket()
         self.data = ""
         self.addr = (host, port)
         self.__connexion()
+        self.__affi = affi
 
     def __connexion(self):
         self.client.connect(self.addr)
@@ -22,7 +24,7 @@ class Client:
         try:
             while self.data != ':disconnect' and self.data != ':kill':
                 self.data = self.client.recv(1024).decode()
-                print(f'{self.data}')
+                self.__affi.append(self.data)
         except ConnectionResetError:
             print("perte de connexion")
         except TimeoutError:
@@ -38,8 +40,7 @@ class Client:
         self.client.send(msg.encode())
     
     
-    def recive(self):
-        self.data = self.client.recv(1024).decode()
+    
         
     
     def close(self):

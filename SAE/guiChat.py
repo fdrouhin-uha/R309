@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QGridLayout, QLabel, QLineEdit, QPushButton
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QGridLayout,QLineEdit, QPushButton,QTextBrowser
 from PyQt5.QtCore import QCoreApplication
 from client import Client
 
@@ -15,22 +15,16 @@ class ChatWindow(QMainWindow):
         self.resize(700, 400)
         self.setWindowTitle("monitoring")
         self.__text = QLineEdit("")
-        self.__lab = QLabel("")
-        self.__lab2 = QLabel("")
-        self.__lab3 = QLabel("")
-        self.__lab4 = QLabel("")
         self.__send = QPushButton("send")
         self.__quit = QPushButton("Exit")
+        self.__affi = QTextBrowser()
         self.__grid.addWidget(self.__text, 7, 0)
         self.__grid.addWidget(self.__send, 7, 1)
         self.__grid.addWidget(self.__quit, 0, 1)
-        self.__grid.addWidget(self.__lab, 0, 0)
-        self.__grid.addWidget(self.__lab2, 1, 0)
-        self.__grid.addWidget(self.__lab3, 2, 0)
-        self.__grid.addWidget(self.__lab4, 3, 0)
+        self.__grid.addWidget(self.__affi,0,0,6,1)
         self.__quit.clicked.connect(self._actionQuitter)
-        self.__send.clicked.connect(self._send)
-        self.__client = Client("127.0.0.1",10000)
+        self.__text.returnPressed.connect(self._send)
+        self.__client = Client("127.0.0.1",10001,self.__affi)
     
     def _actionQuitter(self):
         msg = ':disconnect'
@@ -40,7 +34,7 @@ class ChatWindow(QMainWindow):
     def _send(self):
         msg = self.__text.text()
         self.__client.send(msg)
-        self.__lab3.setText(msg)
+        
         
         
 if __name__ == '__main__':
