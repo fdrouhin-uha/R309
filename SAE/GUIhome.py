@@ -34,7 +34,7 @@ class MainWindow(QMainWindow):
         p = self.__text2.text()
         PORT = int(p)
         conn = (HOST,PORT)
-        diag = ChatWindow(conn)
+        diag = ChatWindow(HOST,PORT)
         diag.show()
         diag.exec()
         
@@ -45,7 +45,7 @@ class MainWindow(QMainWindow):
 
 class ChatWindow(QDialog):
     
-    def __init__(self,conn):
+    def __init__(self,HOST,PORT):
         super().__init__()
         self.__grid = QGridLayout()
         self.setLayout(self.__grid)
@@ -57,9 +57,9 @@ class ChatWindow(QDialog):
         self.__grid.addWidget(self.__text, 7, 0)
         self.__grid.addWidget(self.__quit, 0, 1)
         self.__grid.addWidget(self.__affi,0,0,6,1)
-        self.__quit.clicked.connect(self._actionQuitter)
+        #self.__quit.clicked.connect(self._actionQuitter)
         self.__text.returnPressed.connect(self._send)
-        self.__client = Client(conn,self.__affi)
+        self.__client = Client(HOST,PORT,self.__affi)
     
 
     def _actionQuitter(self):
