@@ -68,6 +68,7 @@ class ChatWindow(QDialog):
         self.__grid.addWidget(self.__text, 7, 0)
         self.__grid.addWidget(self.__quit, 0, 1)
         self.__grid.addWidget(self.__affi,0,0,6,1)
+        
         self.__text.returnPressed.connect(self._send)
         self.__client = Client(HOST,PORT,self.__affi)
     
@@ -78,19 +79,9 @@ class ChatWindow(QDialog):
         msg = self.__text.text()
         self.__client.send(msg)
     
-    def closeEvent(self, _e: QCloseEvent): # <--- Fermeture de l'application depuis la croix Windows
-        box = QMessageBox()
-        box.setWindowTitle("Quitter ?")
-        box.setText("Voulez vous quitter ?")
-        box.addButton(QMessageBox.Yes)
-        box.addButton(QMessageBox.No)
-
-        ret = box.exec()
-
-        if ret == QMessageBox.Yes:
-            QCoreApplication.exit(0)
-        else:
-            _e.ignore() 
+    
+    
+    
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
