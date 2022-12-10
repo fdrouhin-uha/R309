@@ -60,6 +60,21 @@ if __name__ == '__main__':
                             print(txt)
                             conn.send(txt.encode())
                             print(f"E/R: {data}")
+                        elif platform.system =='Windows':
+                            p = subprocess.Popen("ipconfig",tdout=subprocess.PIPE, shell=True)
+                            outs, errs = p.communicate()
+                            txt = outs.decode().rstrip("\r\n")
+                            print(txt)
+                            conn.send(txt.encode())
+                            print(f"E/R: {data}")
+                        else:
+                            p = subprocess.Popen(
+                                "ipconfig getifaddr en1", stdout=subprocess.PIPE, shell=True)
+                            outs, errs = p.communicate()
+                            txt = outs.decode().rstrip("\r\n")
+                            print(txt)
+                            conn.send(txt.encode())
+                            print(f"E/R: {data}")
                     # execute command in the shell using the argument "data"
                     else:
                         p = subprocess.Popen(

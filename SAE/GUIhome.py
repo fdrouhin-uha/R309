@@ -106,7 +106,7 @@ class ChatWindow(QDialog):
     
     def _reset(self):
         box = QMessageBox()
-        box.setWindowTitle("Exit ?")
+        box.setWindowTitle("reset ?")
         box.setText("reset the server ?")
         box.addButton(QMessageBox.Yes)
         box.addButton(QMessageBox.No)
