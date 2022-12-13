@@ -21,8 +21,8 @@ class MainWindow(QMainWindow):
         self.__text2 = QLineEdit("")
         self.__conn = QPushButton("connexion")
         self.__affi = QTextBrowser()
-        self.__grid.addWidget(self.__lab3,0,0)
-        self.__grid.addWidget(self.__affi,1,0,5,1)
+        #self.__grid.addWidget(self.__lab3,0,0)
+        #self.__grid.addWidget(self.__affi,1,0,5,1)
         self.__grid.addWidget(self.__lab, 0, 1)
         self.__grid.addWidget(self.__lab2, 2, 1)
         self.__grid.addWidget(self.__text, 1, 1)
@@ -73,13 +73,13 @@ class ChatWindow(QDialog):
         self.__kill = QPushButton("KILL")
         self.__affi = QTextBrowser()
         self.__grid.addWidget(self.__text, 7, 0)
-        self.__grid.addWidget(self.__quit, 0, 1)
-        self.__grid.addWidget(self.__reset, 1, 1)
-        self.__grid.addWidget(self.__kill, 2, 1)
+        #self.__grid.addWidget(self.__quit, 0, 1)   need to be fix 
+        #self.__grid.addWidget(self.__reset, 1, 1)  need to be fix 
+        #self.__grid.addWidget(self.__kill, 2, 1)   need to be fix 
         self.__grid.addWidget(self.__affi,0,0,6,1)
-        self.__quit.clicked.connect(self._exit)
-        self.__reset.clicked.connect(self._reset)
-        self.__kill.clicked.connect(self._kill)
+        #self.__quit.clicked.connect(self._exit)    need to be fix 
+        #self.__reset.clicked.connect(self._reset)  need to be fix 
+        #self.__kill.clicked.connect(self._kill)    need to be fix 
         self.__text.returnPressed.connect(self._send)
         self.__client = Client(HOST,PORT,self.__affi)
     
