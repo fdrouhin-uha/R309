@@ -30,8 +30,8 @@ class MainWindow(QMainWindow):
         self.__grid.addWidget(self.__conn, 4, 1)
         self.__conn.clicked.connect(self.actionConn)
         self.setWindowTitle("home")
-        self.f = open('history.txt','w+')
-        print(self.f.read())
+        self.f = open('history.txt','r')
+        self.f.read()
 
     def actionConn(self):
         HOST = self.__text.text()

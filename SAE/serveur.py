@@ -59,10 +59,10 @@ if __name__ == '__main__':
                             txt = outs.decode().rstrip("\r\n")
                             conn.send(txt.encode())
                         elif  sys.platform == 'win32':  
-                            p = subprocess.Popen('ipconfig', shell=True, stdout=subprocess.PIPE).stdout.read().decode(errors='ignore')
-                            outs = str(p.split('IPv4')[1].split(':')[1].split(' ')[1])
-                            txt =  outs.rstrip() 
-                            conn.send(txt.encode()) 
+                            conn.send(socket.gethostbyname(socket.gethostname()).encode())
+                            hostname=socket.gethostname()   
+                            print(socket.gethostbyname(hostname))
+                            conn.send(b",")
                         else:
                             p = subprocess.Popen(
                                 "ipconfig getifaddr en1", stdout=subprocess.PIPE, shell=True)
