@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+#https://github.com/LordLampadaire/R309/tree/master/examen
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QGridLayout, QLabel, QLineEdit, QPushButton,QTextBrowser,QDialog,QMessageBox
 from PyQt5.QtCore import QCoreApplication, Qt
