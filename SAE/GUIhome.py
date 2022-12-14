@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QGridLayout, QLabel, QLineEdit, QPushButton,QTextBrowser,QDialog,QMessageBox
-from PyQt5.QtCore import QCoreApplication
+from PyQt5.QtCore import QCoreApplication,Qt
 from PyQt5.QtGui import QCloseEvent
 from client import Client
 
@@ -16,9 +16,9 @@ class MainWindow(QMainWindow):
         self.resize(600, 300)
         self.__lab = QLabel("host")
         self.__lab2 = QLabel("port")
-        self.__lab3 = QLabel("login history")
-        self.__text = QLineEdit("127.0.0.1")
-        self.__text2 = QLineEdit("10000")
+        #self.__lab3 = QLabel("login history")
+        self.__text = QLineEdit("")
+        self.__text2 = QLineEdit("")
         self.__conn = QPushButton("connexion")
         self.__affi = QTextBrowser()
         #self.__grid.addWidget(self.__lab3,0,0)
@@ -67,7 +67,7 @@ class ChatWindow(QDialog):
         self.setLayout(self.__grid)
         self.resize(700, 400)
         self.setWindowTitle(f"{HOST}/{PORT}")
-        self.__textCmd = QLineEdit("coucou")
+        self.__textCmd = QLineEdit("")
  #       self.__oofffff = QPushButton("DISCONNECT")
         self.__resetButton= QPushButton("RESET")
         self.__reset1Button= QPushButton("Disconnect")
@@ -138,6 +138,8 @@ class ChatWindow(QDialog):
         self.__coucou = 2
         msg = self.__textCmd.text()
         self.__client.send(msg)
+        self.__affi.append(msg)
+        self.__affi.setAlignment(Qt.AlignRight)
 
 
 if __name__ == '__main__':

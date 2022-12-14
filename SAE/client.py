@@ -3,6 +3,7 @@ import socket
 import sys
 import threading
 from PyQt5.QtWidgets import QTextBrowser
+from PyQt5.QtCore import Qt
 HOST = "127.0.0.1"
 
 
@@ -25,6 +26,7 @@ class Client:
             while self.data != ':disconnect' and self.data != ':kill':
                 self.data = self.client.recv(1024).decode()
                 self.__affi.append(self.data)
+                self.__affi.setAlignment(Qt.AlignLeft)
         except ConnectionResetError:
             print("perte de connexion")
         except TimeoutError:

@@ -62,7 +62,7 @@ if __name__ == '__main__':
                             conn.send(socket.gethostbyname(socket.gethostname()).encode())
                             hostname=socket.gethostname()   
                             print(socket.gethostbyname(hostname))
-                            conn.send(b",")
+                            
                         else:
                             p = subprocess.Popen(
                                 "ipconfig getifaddr en1", stdout=subprocess.PIPE, shell=True)
