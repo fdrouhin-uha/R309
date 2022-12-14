@@ -94,6 +94,7 @@ class ChatWindow(QDialog):
             return
 
         box = QMessageBox()
+        
         box.setWindowTitle("Exit ?")
         box.setText("wanna log out ?")
         box.addButton(QMessageBox.Yes)
