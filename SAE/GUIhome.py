@@ -68,23 +68,21 @@ class ChatWindow(QDialog):
         self.resize(700, 400)
         self.setWindowTitle(f"{HOST}/{PORT}")
         self.__textCmd = QLineEdit("")
- #       self.__oofffff = QPushButton("DISCONNECT")
         self.__resetButton= QPushButton("RESET")
-        self.__reset1Button= QPushButton("Disconnect")
+        self.__discButton= QPushButton("Disconnect")
         self.__killButton = QPushButton("KILL")
         self.__affi = QTextBrowser()
         self.__grid.addWidget(self.__textCmd, 7, 0)
-        self.__grid.addWidget(self.__reset1Button, 0, 1)   #need to be fix 
+        self.__grid.addWidget(self.__discButton, 0, 1)   #need to be fix 
         self.__grid.addWidget(self.__resetButton, 1, 1)  #need to be fix 
         self.__grid.addWidget(self.__killButton, 2, 1)   #need to be fix 
         self.__grid.addWidget(self.__affi,0,0,6,1)
-        
         self.__resetButton.clicked.connect(self.__resetFD)  #need to be fix 
         self.__killButton.clicked.connect(self.__killFD)    #need to be fix 
         self.__textCmd.returnPressed.connect(self.__sendFD)
         self.__client = Client(HOST,PORT,self.__affi)
 
-        self.__reset1Button.clicked.connect(self.__exitFD)
+        self.__discButton.clicked.connect(self.__exitFD)
         self.__coucou = 1
 
 
