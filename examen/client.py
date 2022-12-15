@@ -23,7 +23,7 @@ class Client:
                 self.data = self.client.recv(1024).decode()
                 self.__affi.append(self.data)
                 self.__affi.setAlignment(Qt.AlignLeft)
-        except:
+        except socket.error as err: # il faut savoir utiliser les exceptions et les utiliser chaque vous envoyer ou revecez un message
             self.client.send("deco-server".encode())
             self.client.close()
 
