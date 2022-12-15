@@ -26,7 +26,7 @@ class Client:
             while self.data != ':disconnect' and self.data != ':kill':
                 self.data = self.client.recv(1024).decode()
                 self.__affi.append(self.data)
-                self.__affi.setAlignment(Qt.AlignLeft)
+                
         except ConnectionResetError:
             print("perte de connexion")
         except TimeoutError:

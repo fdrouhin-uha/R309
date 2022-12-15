@@ -5,6 +5,7 @@ import subprocess
 import psutil
 import platform
 import json
+
 # info of the server
 host = "127.0.0.1"
 port = int(sys.argv[1])
@@ -73,17 +74,27 @@ if __name__ == '__main__':
                             print(f"E/R: {data}")
                     # execute command in the shell using the argument "data"
                     else:
-                        p = subprocess.Popen(
-                            data, stdout=subprocess.PIPE, shell=True, stderr=subprocess.STDOUT)
-                        try:
-                            outs, errs = p.communicate(None, 10)
-                        except subprocess.TimeoutExpired:
-                            print(f"Timeout on command {data}")
-                        else:
-                            txt = outs.decode().rstrip("\r\n")
+                        if sys.platform == 'win32':
+                            
+                            p = subprocess.Popen(data,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,encoding="cp850")
+                            out= p.stdout.read().rstrip()
+                            err= p.stderr.read().rstrip()
+                            ret = f"{out}{err}"
+                            txt = ret 
                             conn.send(txt.encode())
-                            print(f"E/R1: {data}")
-                            print(f"E/R: {txt}")
+                        else:
+                            p = subprocess.Popen(
+                                data, stdout=subprocess.PIPE, shell=True, encoding='utf-8', stderr=subprocess.STDOUT)
+                            try:
+                                outs, errs = p.communicate(None, 10)
+                            except subprocess.TimeoutExpired:
+                                print(f"Timeout on command {data}")
+                            else:
+                                txt = outs.decode().rstrip("\r\n")
+                                conn.send(txt.encode())
+                                print(f"E/R1: {data}")
+                                print(f"E/R: {txt}")
+
 
             except ConnectionResetError:
                 print("connexion lost")

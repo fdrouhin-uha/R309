@@ -137,7 +137,7 @@ class ChatWindow(QDialog):
         msg = self.__textCmd.text()
         self.__client.send(msg)
         self.__affi.append(msg)
-        self.__affi.setAlignment(Qt.AlignRight)
+        
 
 
 if __name__ == '__main__':
