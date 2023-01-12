@@ -73,24 +73,25 @@ if __name__ == '__main__':
                             conn.send(txt.encode())
                             print(f"E/R: {data}")
                     # execute command in the shell using the argument "data"
-                    else:
+                    else: # les commandes kill, disconnect et reset passe par cette partie (dans le else, il faut mettre elif avec une condition)
+                        cmd = data.split(':')
                         if sys.platform == 'win32':
                             
-                            p = subprocess.Popen(data,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,encoding="cp850")
+                            p = subprocess.Popen(cmd[1],shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,encoding="cp850")
                             out= p.stdout.read().rstrip()
                             err= p.stderr.read().rstrip()
                             ret = f"{out}{err}"
                             txt = ret 
                             conn.send(txt.encode())
                         else:
-                            p = subprocess.Popen(
-                                data, stdout=subprocess.PIPE, shell=True, encoding='utf-8', stderr=subprocess.STDOUT)
                             try:
+                                p = subprocess.Popen(
+                                    cmd[1], stdout=subprocess.PIPE, shell=True, encoding='utf-8', stderr=subprocess.STDOUT)
                                 outs, errs = p.communicate(None, 10)
                             except subprocess.TimeoutExpired:
                                 print(f"Timeout on command {data}")
                             else:
-                                txt = outs.decode().rstrip("\r\n")
+                                txt = outs.rstrip("\r\n")
                                 conn.send(txt.encode())
                                 print(f"E/R1: {data}")
                                 print(f"E/R: {txt}")
