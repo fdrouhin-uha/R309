@@ -8,12 +8,13 @@ if __name__ == '__main__':
         client_socket = socket.socket()
         client_socket.connect((host, port))
         data=''
+        message = ''
         try:
-            while data != 'bye' and data !='arret' :
+            while data != 'bye' and data !='arret' and message != 'bye' and message !='arret':
                 message = input('votre message: ')
                 client_socket.send(message.encode())
-                data = client_socket.recv(1024).decode()
-                print(data)
+                #data = client_socket.recv(1024).decode()
+                #print(data)
 
         except ConnectionResetError:
             print("perte de connexion")
